@@ -116,6 +116,27 @@ a {
     justify-content: space-between;
 }
 
+/* Used this website to help understand how to style the radio buttons properly:
+https://stackoverflow.com/questions/4641752/css-how-to-style-a-selected-radio-buttons-label */
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"] + label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid;
+    width: 28px;
+    height: 28px;
+}
+
+input[type="radio"]:checked + label {
+    background-color: gray;
+}
+
+
 .selected-box {
     width: 16px;
     text-align: center;
