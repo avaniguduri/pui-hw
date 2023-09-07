@@ -1,15 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-  <meta charset="UTF-8">
-  <title>Page Title</title>
-  
+  <head>
+    <meta charset="UTF-8">
+    <title>Bun Bun Bake Shop Website</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
   <body>
+    <div class="header">
+      <img id="logo" src="assets/logo/logo-01.svg" alt="Bun Bun Bake Shop logo">
+      <div class="header-right">
+        <div id="navbar">
+          <a id="product-nav" class="bold-highlight">PRODUCTS</a>
+          <a id="cart-nav">CART</a>
+        </div>
+        <hr id="line">
+        <h>Our hand-made cinnamon rolls</h>
+      </div>
+    </div>
 
-    <h1>I am the solution to HW1!</h1>
+    <div class="product-grid">
+      
+      <div class="product">
+        <img class="product-image" src="assets/products/original-cinnamon-roll.jpg">
+        <p class="product-name">Original cinnamon roll</p>
 
-    <p>
-        And I can link to <a href="./otherpage.html">other pages.</a>
-    </p>
+        <div class="select-glazing">
+          <label class="type-label">Glazing: </label>
+          <select class="glazing-options">
+            <option value="Keep-original">Keep original</option>
+            <option value="Sugar-milk">Sugar milk</option>
+            <option value="Vanilla-milk">Vanilla milk</option>
+            <option value="Double-chocolate">Double chocolate</option>
+          </select>
+        </div>
+
+        <div class="select-size">
+          <div class="type-label">Pack size: </div>
+          <div class="pack-size-options">
+            <div class="selected-box">1</div>
+            <div class="unselected-box">3</div>
+            <div class="unselected-box">6</div>
+            <div class="unselected-box">12</div>
+          </div>
+        </div>
+
+        <div class="price-cart-row">
+          <div class="product-price">$ 2.49</div>
+          <div class="add-to-cart-button">Add to Cart</div>
+        </div>
+      </div>
+
+      <div class="product">
+        <img class="product-image" src="assets/products/apple-cinnamon-roll.jpg">
+        <p class="product-name">Apple cinnamon roll</p>
+
+        <div class="select-glazing">
+          <label class="type-label">Glazing</label>
+          <select class="glazing-options">
+            <option value="Keep-original">Keep original</option>
+            <option value="Sugar-milk">Sugar milk</option>
+            <option value="Vanilla-milk">Vanilla milk</option>
+            <option value="Double-chocolate">Double chocolate</option>
+          </select>
+        </div>
+
+        <div class="select-size">
+          <div class="type-label">Pack size: </div>
+          <div class="pack-size-options">
+            <div class="selected-box">1</div>
+            <div class="unselected-box">3</div>
+            <div class="unselected-box">6</div>
+            <div class="unselected-box">12</div>
+          </div>
+        </div>
+
+        <div class="price-cart-row">
+          <div class="product-price">$ 3.49</div>
+          <div class="add-to-cart-button">Add to Cart</div>
+        </div>
+      </div>
+
+      <div class="product">
+        <img class="product-image" src="assets/products/raisin-cinnamon-roll.jpg">
+        <p class="product-name">Raisin cinnamon roll</p>
+
+        <div class="select-glazing">
+          <label class="type-label">Glazing</label>
+          <select class="glazing-options">
+            <option value="Keep-original">Keep original</option>
+            <option value="Sugar-milk">Sugar milk</option>
+            <option value="Vanilla-milk">Vanilla milk</option>
+            <option value="Double-chocolate">Double chocolate</option>
+          </select>
+        </div>
+
+        <div class="select-size">
+          <div class="type-label">Pack size: </div>
+          <div class="pack-size-options">
+            <div class="selected-box">1</div>
+            <div class="unselected-box">3</div>
+            <div class="unselected-box">6</div>
+            <div class="unselected-box">12</div>
+          </div>
+        </div>
+
+        <div class="price-cart-row">
+          <div class="product-price">$ 2.99</div>
+          <div class="add-to-cart-button">Add to Cart</div>
+        </div>
+      </div>
+
+      <div class="product">
+        <img class="product-image" src="assets/products/walnut-cinnamon-roll.jpg">
+        <p class="product-name">Walnut cinnamon roll</p>
+
+        <div class="select-glazing">
+          <label class="type-label">Glazing</label>
+          <select class="glazing-options">
+            <option value="Keep-original">Keep original</option>
+            <option value="Sugar-milk">Sugar milk</option>
+            <option value="Vanilla-milk">Vanilla milk</option>
+            <option value="Double-chocolate">Double chocolate</option>
+          </select>
+        </div>
+
+        <div class="select-size">
+          <div class="type-label">Pack size: </div>
+          <div class="pack-size-options">
+            <div class="selected-box">1</div>
+            <div class="unselected-box">3</div>
+            <div class="unselected-box">6</div>
+            <div class="unselected-box">12</div>
+          </div>
+        </div>
+
+        <div class="price-cart-row">
+          <div class="product-price">$ 3.49</div>
+          <div class="add-to-cart-button">Add to Cart</div>
+        </div>
+      </div>
+
+      <div class="product">
+        <img class="product-image" src="assets/products/double-chocolate-cinnamon-roll.jpg">
+        <p class="product-name">Double-chocolate cinnamon roll</p>
+
+        <div class="select-glazing">
+          <label class="type-label">Glazing</label>
+          <select class="glazing-options">
+            <option value="Keep-original">Keep original</option>
+            <option value="Sugar-milk">Sugar milk</option>
+            <option value="Vanilla-milk">Vanilla milk</option>
+            <option value="Double-chocolate">Double chocolate</option>
+          </select>
+        </div>
+
+        <div class="select-size">
+          <div class="type-label">Pack size: </div>
+          <div class="pack-size-options">
+            <div class="selected-box">1</div>
+            <div class="unselected-box">3</div>
+            <div class="unselected-box">6</div>
+            <div class="unselected-box">12</div>
+          </div>
+        </div>
+
+        <div class="price-cart-row">
+          <div class="product-price">$ 3.99</div>
+          <div class="add-to-cart-button">Add to Cart</div>
+        </div>
+      </div>
+
+      <div class="product">
+        <img class="product-image" src="assets/products/strawberry-cinnamon-roll.jpg">
+        <p class="product-name">Strawberry cinnamon roll</p>
+
+        <div class="select-glazing">
+          <label class="type-label">Glazing</label>
+          <select class="glazing-options">
+            <option value="Keep-original">Keep original</option>
+            <option value="Sugar-milk">Sugar milk</option>
+            <option value="Vanilla-milk">Vanilla milk</option>
+            <option value="Double-chocolate">Double chocolate</option>
+          </select>
+        </div>
+
+        <div class="select-size">
+          <div class="type-label">Pack size: </div>
+          <div class="pack-size-options">
+            <div class="selected-box">1</div>
+            <div class="unselected-box">3</div>
+            <div class="unselected-box">6</div>
+            <div class="unselected-box">12</div>
+          </div>
+        </div>
+
+        <div class="price-cart-row">
+          <div class="product-price">$ 3.99</div>
+          <div class="add-to-cart-button">Add to Cart</div>
+        </div>
+      </div>
+
+    </div>
 
   </body>
 </html>
