@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Bun Bun Bake Shop Website</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/pricecart.js" type="text/javascript"></script>
+  </head>
+
+  <!-- Got onload from ww3: https://www.w3schools.com/jsref/event_onload.asp -->
+  <body onload="onPageLoad()">
+
+    <div class="header">
+      <img id="logo" src="assets/logo/logo-01.svg" alt="Bun Bun Bake Shop logo">
+      <div class="header-right">
+        <div id="navbar">
+
+          <a id="product-nav" class="bold-hover highlight-hover">PRODUCTS</a>
+          
+          <div id="cart-info">
+            <a id="cart-nav">CART</a>
+        
+            <div id="cart-popup">
+              <p class="pop-up-header">Added to cart: </p>
+              <!-- placeholder pop-up text to be changed upon first pop-up -->
+              <p class="pop-up-text bold" id="pop-up-roll-name">X roll</p>
+              <p class="pop-up-text" id="pop-up-roll-glazing">X glazing</p>
+              <p class="pop-up-text" id="pop-up-roll-size">Pack of X</p>
+              <p class="pop-up-text" id="pop-up-roll-price">Price: $X.XX</p>
+
+            </div>
+
+            <p class="cart-info" id="item-count">0 items</p>
+            <p class="cart-info" id="cart-price">Total: $0.00</p>
+
+          </div>
+        </div>
+
+        <hr id="line">
+        <p class="heading1">Our hand-made cinnamon rolls</p>
+
+      </div>
+    </div>
+    <div class="product-grid"></div> 
+    <!-- product grid populated in pricecart.js -->
+
+  </body>
+
+</html>
