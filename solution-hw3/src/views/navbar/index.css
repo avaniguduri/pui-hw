@@ -1,0 +1,22 @@
+/* navbar elements */
+
+#navbar {
+    justify-content: right;
+    text-align: right;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-right: 40px;
+    display: grid;
+    grid-template-columns: 140px 140px;
+    grid-gap: 20px;
+}
+
+#product-nav {
+    grid-row: 1;
+    grid-column:1;
+}
+
+#cart-nav {
+    grid-row: 1;
+    grid-column: 2;
+}
