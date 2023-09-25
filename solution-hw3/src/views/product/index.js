@@ -35,7 +35,7 @@ class ProductRoll extends Component {
         return (
             // creates the product div with all the elements: image, title, glazing and pack size rows, price, add to cart button, etc 
             <div className="product">
-                <img className="product-image big-border" src={"/assets/products/"+this.props.roll.id+"-cinnamon-roll.jpg"}/>
+                <img className="product-image big-border" src={"assets/products/"+this.props.roll.id+"-cinnamon-roll.jpg"}/>
                 <p className="heading2">{this.props.roll.name}</p>
 
                 <div className="product-info-row">
