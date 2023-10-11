@@ -29,6 +29,10 @@ a {
   font-weight: bold;
 }
 
+.underline {
+  text-decoration: underline;
+}
+
 .bold-hover:hover {
   font-weight: bold;
 }

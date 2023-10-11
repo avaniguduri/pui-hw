@@ -48,19 +48,21 @@ class ProductRoll extends Component {
         let allGlazings = [];
         this.props.glazings.forEach((gl, index) => {allGlazings.push(<option value={index}>{gl.name}</option>)});
 
+        const radioSelected = {backgroundColor: 'gray'};
+        const radioUnselected = {};
+
         // creates the pack size radio options as an array with a loop
         /* Used this to figure out how to put radio buttons into html:
            https://www.w3schools.com/tags/att_input_type_radio.asp */
         let allSizes = [];
         this.props.packSize.forEach((ps, index) => {
-            let isChecked = index === 0; // pack size 1 starts off selected for each product
+            let isChecked = ps.amount === this.state.packSize.amount; // pack size 1 starts off selected for each product
             let id = `${this.props.roll.id}-${index}`;
             // populate pack size array with inputs for radio options
             allSizes.push(<input type="radio" name={this.props.roll.id}
-                                 value={index} id={id} defaultChecked={isChecked}
-                                 onChange={this.sizeChange}/>);
+                                 value={index} id={id} onChange={this.sizeChange}/>);
             // populate pack size array with labels for radio options
-            allSizes.push(<label htmlFor={id}>{ps.amount}</label>)
+            allSizes.push(<label htmlFor={id} style={isChecked ? radioSelected : radioUnselected}>{ps.amount}</label>)
         });
 
         return (

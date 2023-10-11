@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./index.css";
 import ProductRoll from "../product/index.js";
 import NavBar from "../navbar/index.js";
+import CartView from "../view-cart/index.js";
 
 // class for products
 function Product(name, id, basePrice, altText) {
@@ -28,7 +29,7 @@ const products = [
     new Product("Original cinnamon roll", "original", 2.49, "Original cinnamon roll in a plate"),
     new Product("Apple cinnamon roll", "apple", 3.49, "Apple cinnamon roll in a plate with fork"),
     new Product("Raisin cinnamon roll", "raisin", 2.99, "Raisin cinnamon roll propped up"),
-    new Product("Walnut cinnamon roll", "walnut", 3.4, "Walnut cinnamon roll in plate beside plate of walnut and cinnamon"),
+    new Product("Walnut cinnamon roll", "walnut", 3.49, "Walnut cinnamon roll in plate beside plate of walnut and cinnamon"),
     new Product("Double-chocolate cinnamon roll", "double-chocolate", 3.99, "Double chocolate cinnamon roll on paper"),
     new Product("Strawberry cinnamon roll", "strawberry", 3.99, "Stawberries and cinnamon rolls on skewers")
 ];
@@ -50,20 +51,34 @@ const sizeOptions = [
 ];
 
 // class for cart that holds info of last added item, a function to add items, and cart # of items and price
-function Cart(cartCount, cartTotal) {
-    this.cartCount = cartCount;
-    this.cartTotal = cartTotal;
-    this.addedGlazing = glazingOptions[0];
-    this.addedPackSize = sizeOptions[0];
-    this.addedRoll = products[0];
-    this.addedItemTotal = 0.00;
+function Cart() {
+    this.items = [];
+    this.addedItem = null; // include roll, glazing, pack size
+    this.total = function () {
+        return this.items.reduce((pv, item, index) => {
+            return pv + ((item.roll.basePrice + item.glazing.adaption) * item.packSize.adaption);
+        }, 0).toFixed(2);
+    };
+    this.addedItemTotal = function () {
+        if (!this.addedItem) {
+            return 0.0.toFixed(2);
+        } else {
+            let ai = this.addedItem;
+            return ((ai.roll.basePrice + ai.glazing.adaption) * ai.packSize.adaption).toFixed(2);
+        }
+    };
     this.addItem = function (roll, glazing, packSize) {
-        let price = (glazing.adaption + roll.basePrice) * packSize.adaption;
-        let newCart = new Cart(this.cartCount + 1, this.cartTotal + price);
-        newCart.addedGlazing = glazing;
-        newCart.addedPackSize = packSize;
-        newCart.addedRoll = roll;
-        newCart.addedItemTotal = price;
+        let newCart = new Cart();
+        newCart.items = this.items;
+        newCart.addedItem = {roll: roll, glazing: glazing, packSize: packSize, total: function () {return ((roll.basePrice + glazing.adaption) * packSize.adaption).toFixed(2);}};
+        newCart.items.push(newCart.addedItem);
+        return newCart;
+    };
+    this.removeItem = function (index) {
+        let newCart = new Cart();
+        console.log(this);
+        newCart.items = this.items;
+        newCart.items.splice(index, 1);
         return newCart;
     };
 }
@@ -75,12 +90,53 @@ function Cart(cartCount, cartTotal) {
 class HomePage extends Component {
     constructor(props) {
         super(props);
-        this.state = {cart : new Cart(0, 0.00)};
+        this.state = {cart : new Cart(), viewCart : false, productList : products, search : "", sortBy : "name"};
         this.onCartAdd = this.onCartAdd.bind(this);
+        this.onCartRemove = this.onCartRemove.bind(this);
+        this.toggleCartView = this.toggleCartView.bind(this);
+        this.updateProductList = this.updateProductList.bind(this);
+        this.updateSortBy = this.updateSortBy.bind(this);
     }
 
     onCartAdd(cart) {
-        this.setState({cart: cart});
+        this.setState((ps) => {return {...ps, cart : cart}});
+    }
+
+    onCartRemove(index) {
+        this.setState((ps) => {return {...ps, cart : this.state.cart.removeItem(index)}});
+    }
+
+    toggleCartView() {
+        this.setState((ps) => {return {...ps, viewCart : !this.state.viewCart}});
+    }
+
+    filterProducts(ss, sb) {
+        let newProductList;
+        if (!ss || ss.trim() === "") {
+            if (sb === "name") {
+                newProductList = products.sort( (p1, p2) => p1.name.localeCompare(p2.name));
+            } else {
+                newProductList = products.sort( (p1, p2) => p1.basePrice - p2.basePrice);
+            }
+        } else {
+            newProductList = products.filter( (p) => p.name.toLowerCase().includes(ss.toLowerCase()) );
+            if (sb === "name") {
+                newProductList = newProductList.sort( (p1, p2) => p1.name.localeCompare(p2.name));
+            } else {
+                newProductList = newProductList.sort( (p1, p2) => p1.basePrice - p2.basePrice);
+            }
+        }
+        return newProductList;
+    }
+
+    updateProductList() {
+        let searchString = document.getElementById("search-input").value;
+        this.setState((ps) => {return {...ps, search : searchString, productList : this.filterProducts(searchString, this.state.sortBy)}});
+    }
+
+    updateSortBy() {
+        let sb = document.getElementById("search-sort").value;
+        this.setState((ps) => {return {...ps, productList : this.filterProducts(this.state.search, sb), sortBy : sb}});
     }
 
     render() {
@@ -91,18 +147,28 @@ class HomePage extends Component {
                 <div className="header">
                     <img id="logo" src="assets/logo/logo-01.svg" alt="Bun Bun Bake Shop logo"/>
                     <div className="header-right">
-                        <NavBar cartInfo={this.state.cart}/>
+                        <NavBar cartInfo={this.state.cart} cartVisible={this.state.viewCart} toggleCartView={this.toggleCartView}/>
                         <hr id="line"/>
                         <p className="heading1">Our hand-made cinnamon rolls</p>
                     </div>
                 </div>
+                <div> {this.state.viewCart && <CartView cart={this.state.cart} onCartRemove={this.onCartRemove}/>}</div>
+                <div>
+                    <input type="text" id="search-input"></input>
+                    <button onClick={this.updateProductList}>Search</button>
+                    <label className="label-text">sort by: </label>
+                    <select name='searchSort' className="item-choice" id="search-sort" onChange={this.updateSortBy}> 
+                        <option value="name">Name</option>
+                        <option value="base">Base Price</option>
+                    </select>
+                </div>
+                {(this.state.productList.length === 0) &&
+                    <p>No Match!</p>
+                }
                 <div className="product-grid">
-                    <ProductRoll key={products[0].id} roll={products[0]} glazings={glazingOptions} packSize={sizeOptions} cartInfo={this.state.cart} onCartAdd={this.onCartAdd}/>
-                    <ProductRoll key={products[1].id} roll={products[1]} glazings={glazingOptions} packSize={sizeOptions} cartInfo={this.state.cart} onCartAdd={this.onCartAdd}/>
-                    <ProductRoll key={products[2].id} roll={products[2]} glazings={glazingOptions} packSize={sizeOptions} cartInfo={this.state.cart} onCartAdd={this.onCartAdd}/>
-                    <ProductRoll key={products[3].id} roll={products[3]} glazings={glazingOptions} packSize={sizeOptions} cartInfo={this.state.cart} onCartAdd={this.onCartAdd}/>
-                    <ProductRoll key={products[4].id} roll={products[4]} glazings={glazingOptions} packSize={sizeOptions} cartInfo={this.state.cart} onCartAdd={this.onCartAdd}/>
-                    <ProductRoll key={products[5].id} roll={products[5]} glazings={glazingOptions} packSize={sizeOptions} cartInfo={this.state.cart} onCartAdd={this.onCartAdd}/>
+                    {this.state.productList.map( (p) => {
+                        return <ProductRoll key={p.id} roll={p} glazings={glazingOptions} packSize={sizeOptions} cartInfo={this.state.cart} onCartAdd={this.onCartAdd}/>
+                    })}
                 </div>
             </>
         );

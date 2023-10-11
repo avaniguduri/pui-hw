@@ -14,10 +14,10 @@ class NavBar extends Component {
             <div id="navbar">
                 <a id="product-nav" className="bold-hover highlight-hover">PRODUCTS</a>
                 <div id="cart-info">
-                    <a id="cart-nav">CART</a>
+                    <a id="cart-nav" onClick={this.props.toggleCartView}>CART</a>
                     <CartPopup cartInfo={this.props.cartInfo}/>
-                    <p className="cart-info" id="item-count">{this.props.cartInfo.cartCount} item(s)</p>
-                    <p className="cart-info" id="cart-price">Total: ${this.props.cartInfo.cartTotal.toFixed(2)}</p>
+                    <p className="cart-info" id="item-count">{this.props.cartInfo.items.length} item(s)</p>
+                    <p className="cart-info" id="cart-price">Total: ${this.props.cartInfo.total()}</p>
                 </div>
             </div>
         );
