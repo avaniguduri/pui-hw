@@ -153,17 +153,17 @@ class HomePage extends Component {
                     </div>
                 </div>
                 <div> {this.state.viewCart && <CartView cart={this.state.cart} onCartRemove={this.onCartRemove}/>}</div>
-                <div>
+                <div className="search-sort-div">
                     <input type="text" id="search-input"></input>
                     <button onClick={this.updateProductList}>Search</button>
-                    <label className="label-text">sort by: </label>
-                    <select name='searchSort' className="item-choice" id="search-sort" onChange={this.updateSortBy}> 
+                    <label className="label-text" id="sort-by">sort by: </label>
+                    <select name='searchSort' className="item-choice small-border" id="search-sort" onChange={this.updateSortBy}> 
                         <option value="name">Name</option>
                         <option value="base">Base Price</option>
                     </select>
                 </div>
                 {(this.state.productList.length === 0) &&
-                    <p>No Match!</p>
+                    <p className="heading1 center">No Match!</p>
                 }
                 <div className="product-grid">
                     {this.state.productList.map( (p) => {

@@ -31,6 +31,14 @@
     margin-bottom: 70px;
 }
 
+.search-sort-div {
+    margin-top: 40px;
+}
+
+#sort-by {
+    margin-left: 20px;
+}
+
 /* product grid */
 
 .product-grid {

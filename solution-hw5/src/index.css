@@ -33,6 +33,10 @@ a {
   text-decoration: underline;
 }
 
+.center {
+  text-align: center;
+}
+
 .bold-hover:hover {
   font-weight: bold;
 }
