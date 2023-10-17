@@ -89,7 +89,7 @@ function Cart(itms) {
         newCart.items = this.items;
         newCart.addedItem = {roll: roll, glazing: glazing, packSize: packSize, total: function () {return ((roll.basePrice + glazing.adaption) * packSize.adaption).toFixed(2);}};
         newCart.items.push(newCart.addedItem);
-        this.serializeCart();
+        newCart.serializeCart();
         return newCart;
     };
 
@@ -97,7 +97,7 @@ function Cart(itms) {
         let newCart = new Cart([]);
         newCart.items = [...this.items];
         newCart.items.splice(index, 1);
-        this.serializeCart();
+        newCart.serializeCart();
         return newCart;
     };
 
