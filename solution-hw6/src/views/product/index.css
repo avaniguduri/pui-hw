@@ -1,0 +1,48 @@
+
+/* product elements */
+
+.product-image{
+    width: 100%;
+}
+
+.product-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.glazing-options {
+    width: 150px;
+}
+
+.pack-size-options{
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Used these websites to help understand how to style the radio buttons properly:
+https://stackoverflow.com/questions/4641752/css-how-to-style-a-selected-radio-buttons-label
+https://stackoverflow.com/questions/18166664/text-only-radio-buttons */
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"] + label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid;
+    width: 28px;
+    height: 28px;
+}
+
+.add-to-cart-button {
+    font-size: 16px;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    width: 146px;
+}

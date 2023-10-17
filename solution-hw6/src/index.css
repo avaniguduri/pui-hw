@@ -1,0 +1,54 @@
+body {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 50px;
+}
+
+/* text and border styles */
+
+h {
+  font-size: 30px;
+}
+
+a {
+  font-size: 24px;
+}
+
+.heading2{
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.label-text {
+  font-size: 16px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.center {
+  text-align: center;
+}
+
+.bold-hover:hover {
+  font-weight: bold;
+}
+
+.highlight-hover:hover {
+  background-color: yellow;
+}
+
+.big-border {
+  border: 4px solid;
+}
+
+.small-border {
+  border: 2px solid;
+}
