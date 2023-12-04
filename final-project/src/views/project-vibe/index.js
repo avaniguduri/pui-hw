@@ -4,8 +4,8 @@ import TopBar from "../top-bar";
 function ProjectVibePage(props) {
     
     const handleButtonClick = () => {
+        props.getProjectVibe(document.getElementById("vibe-options").value);
         props.onNextPage("playlist");
-        props.projectVibe = document.getElementById("vibe-options").value
     };
     
     return (

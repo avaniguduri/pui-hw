@@ -13,7 +13,7 @@ function GrooveActivityPage(props) {
             <TopBar showBackArrow="false" pageTitle="THE GROOVE" onNextPage={props.onNextPage} lastPage="playlist"/>
             <div className="sized-page">
                 <h3 className="activity-title">13 min left</h3>
-                <SongPlayer projectVibe={props.projectVibe}/>
+                <SongPlayer projectVibe={props.projectVibe} onNextPage={props.onNextPage}/>
                 <div className="button no-fill">
                 <button className="button-text dark-text" onClick={handleButtonClick}>End activity early</button>
                 </div>
