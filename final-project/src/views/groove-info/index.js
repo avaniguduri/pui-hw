@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TopBar from "../top-bar";
+import './index.css';
 
 function GrooveInfoPage(props) {
     
@@ -11,15 +12,14 @@ function GrooveInfoPage(props) {
         <div className="page-with-topbar">
             <TopBar showBackArrow="true" pageTitle="THE GROOVE" onNextPage={props.onNextPage} lastPage="which-block"/>
             <div className="sized-page">
-                <h3 className="activity-title">Back into the Groove</h3>
-                <p className="activity-time">10-30 min</p>
-                <div className="prompt-question">
-                    <h2>Listen to a playlist. Songs match the mood of your project in order to help you get back into the headspace of your project.</h2>
+                <h1>Back into the Groove</h1>
+                <h3>10-30 min</h3>
+                <div className="instructions">
+                    <h2 className="purple-text bold-text">Listen to a playlist.</h2>
+                    <h2>Songs match the mood of your project in order to help you get back into the headspace of your project.</h2>
                 </div>
                 <p className="activity-subdescription">Choose to read through past writing, look at relevant notes/sketches, or close your head to imagine your story as the songs play.</p>
-                <div className="button black-fill">
-                    <button className="button-text white-text" onClick={handleButtonClick}>Start</button>
-                </div>
+                <button className="button black-fill button-text white-text" onClick={handleButtonClick}>Start</button>
             </div>
         </div>
     );

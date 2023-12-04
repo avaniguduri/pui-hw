@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TopBar from "../top-bar";
+import './index.css';
 
 function ProjectVibePage(props) {
     
@@ -12,17 +13,13 @@ function ProjectVibePage(props) {
         <div className="page-with-topbar">
             <TopBar showBackArrow="true" pageTitle="THE GROOVE" onNextPage={props.onNextPage} lastPage="groove-info"/>
             <div className="sized-page">
-                <div className="prompt-question">
-                    <h2>What’s the mood or vibe of your project?</h2>
-                </div>
+                <h2>What’s the mood or vibe of your project?</h2>
                 <select id="vibe-options">
-                    <option value="spooky">Spooky</option>
-                    <option value="epic">Epic</option>
-                    <option value="Melancholic">Melancholic</option>
+                    <option className="button-text" value="spooky">Spooky</option>
+                    <option className="button-text" value="epic">Epic</option>
+                    <option className="button-text" value="Melancholic">Melancholic</option>
                 </select>
-                <div className="button black-fill">
-                    <button className="button-text white-text" onClick={handleButtonClick}>Submit</button>
-                </div>
+                <button className="button black-fill button-text white-text" onClick={handleButtonClick}>Submit</button>
             </div>
         </div>
     );

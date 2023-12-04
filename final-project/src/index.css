@@ -1,13 +1,99 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: 500;
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.upper {
+  text-transform: uppercase;
+}
+
+.white-text {
+  color: #FFF;
+}
+
+.button-text {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.button {
+  width: 100%;
+  height: 48px;
+  padding: 12px 20px;
+  border-radius: 4px;
+  justify-content: center;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.black-fill {
+  border: 1px solid #000;
+  background: #000;
+}
+
+.page-with-topbar {
+  display: flex;
+  flex-flow: column;
+  margin: auto;
+  width: 30%;
+  padding: 10px;
+}
+
+.sized-page {
+  display: flex;
+  flex-flow: column;
+  text-align: left;
+  gap: 24px;
+}
+
+.tall {
+  height: 96px;
+}
+
+.no-fill {
+  background: white;
+}
+
+.purple-text {
+  color: #5768FF
+}
+
+.dark-text {
+  color: black;
+}
+
+.bold-text {
+  font-weight: 600;
 }

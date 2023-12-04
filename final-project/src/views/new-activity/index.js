@@ -11,13 +11,9 @@ function NewActivityPage(props) {
         <div className="page-with-topbar">
             <TopBar showBackArrow="true" pageTitle="" onNextPage={props.onNextPage} lastPage="home"/>
             <div className="sized-page">
-                <div className="prompt-question">
-                    <h2>"The first draft is just you telling yourself the story"</h2>
-                </div>
+                <h2>"The first draft is just you telling yourself the story"</h2>
                 <img className="centered-image" src="BreakingBlock.svg" alt="block in pieces on line in sketchy style"/>
-                <div className="button black-fill">
-                    <button className="button-text white-text" onClick={handleButtonClick}>Find a new activity</button>
-                </div>
+                <button className="button black-fill button-text white-text" onClick={handleButtonClick}>Find a new activity</button>
             </div>
         </div>
     );

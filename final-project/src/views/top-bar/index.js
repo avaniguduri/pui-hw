@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import './index.css';
 
 function TopBar(props) {
     
@@ -17,8 +18,10 @@ function TopBar(props) {
 
     return (
         <div className="top-bar">
-            {backArrow}
-            <h4>{props.pageTitle}</h4>
+            <div className="arrow-heading-group">
+                {backArrow}
+                <h4>{props.pageTitle}</h4>
+            </div>
         </div>
     );
 

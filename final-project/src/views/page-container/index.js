@@ -21,8 +21,6 @@ function PageContainer() {
         setProjectVibe(vibe);
     }
 
-    console.log(projectVibe);
-
     return (
         <div>
             {currentPage === "home" && (<HomePage onNextPage={handleClick}/>)}

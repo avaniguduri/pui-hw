@@ -203,7 +203,6 @@ function SongPlayer(props) {
         song3 = songList[currentSongIndex+1];
     } else {song1 = null}
 
-
     return (
         <div className="song-player">
             <div className="playlist-container">
