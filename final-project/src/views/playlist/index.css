@@ -8,8 +8,8 @@
 .song-card {
     display: flex;
     flex-direction: row;
-    height: 96px;
-    width: 304px;
+    height: 48px;
+    width: 100%;
     padding: 12px 20px;
     align-items: center;
     gap: 20px;
@@ -19,12 +19,12 @@
 }
 
 .song-visual {
-    width: 64px;
-    height: 64px;
+    width: 40px;
+    height: 40px;
     background: #5768FF;
     border-radius: 4px;
 }
 
 .song-text-info {
-    
+
 }
