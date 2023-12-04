@@ -52,7 +52,7 @@ function SongPlayer(props) {
 
     const togglePlayButton0 = () => {
         if (isPlaying0) {
-            stop();
+            pause();
             setIsPlaying0(false);
         } else {
             play();
@@ -62,7 +62,7 @@ function SongPlayer(props) {
 
     const togglePlayButton1 = () => {
         if (isPlaying1) {
-            stop();
+            pause();
             setIsPlaying1(false);
         } else {
             play();
@@ -72,7 +72,7 @@ function SongPlayer(props) {
 
     const togglePlayButton2 = () => {
         if (isPlaying2) {
-            stop();
+            pause();
             setIsPlaying2(false);
         } else {
             play();
@@ -82,7 +82,7 @@ function SongPlayer(props) {
 
     const togglePlayButton3 = () => {
         if (isPlaying3) {
-            stop();
+            pause();
             setIsPlaying3(false);
         } else {
             play();
@@ -92,7 +92,7 @@ function SongPlayer(props) {
 
     const togglePlayButton4 = () => {
         if (isPlaying4) {
-            stop();
+            pause();
             setIsPlaying4(false);
         } else {
             play();
@@ -140,24 +140,9 @@ function SongPlayer(props) {
             setIsPlaying4(false);
         }
         
-        if (currentSongIndex < 5) {
+        if (currentSongIndex < 4) {
+            setCurrentSongPath(songList[currentSongIndex + 1].filePath);
             setCurrentSongIndex(currentSongIndex + 1);
-            setCurrentSongPath(songList[currentSongIndex].filePath);
-            if (isPlaying) {
-                if (currentSongIndex == 0) {
-                    setIsPlaying0(true)
-                } else if (currentSongIndex == 1) {
-                    setIsPlaying1(true)
-                } else if (currentSongIndex == 2) {
-                    setIsPlaying2(true)
-                } else if (currentSongIndex == 3) {
-                    setIsPlaying3(true)
-                } else if (currentSongIndex == 4) {
-                    setIsPlaying4(true)
-                }
-                play();
-            }
-            console.log("forward clicked", currentSongIndex);
         }
     }
 

@@ -5,6 +5,7 @@ function ProjectVibePage(props) {
     
     const handleButtonClick = () => {
         props.onNextPage("playlist");
+        props.projectVibe = document.getElementById("vibe-options").value
     };
     
     return (
@@ -14,7 +15,7 @@ function ProjectVibePage(props) {
                 <div className="prompt-question">
                     <h2>What’s the mood or vibe of your project?</h2>
                 </div>
-                <select className="vibe-options">
+                <select id="vibe-options">
                     <option value="spooky">Spooky</option>
                     <option value="epic">Epic</option>
                     <option value="Melancholic">Melancholic</option>
