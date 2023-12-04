@@ -36,202 +36,88 @@ function SongPlayer(props) {
             new Song("Destruction Mill", "ACOUSTIC ASTRONAUT", "/DestructionMill.mp3"),
         ];
     }
+    
+    const [currentSongIndex, setCurrentSongIndex] = useState(0);
+
+    const forward = () => {
+        let newIndex = currentSongIndex + 1;
+        if (newIndex < 5) setCurrentSongIndex(newIndex);
+        updatePlayer(currentSongIndex, newIndex);
+    };
+
+    const back = () => {
+        let newIndex = currentSongIndex - 1;
+        if (newIndex >=  0) setCurrentSongIndex(newIndex);
+        updatePlayer(currentSongIndex, newIndex);
+    };
+
+    const onSongEnd = () => {document.getElementById("forwardSkip").click(); };
+    const onLastSongEnd = () => {props.onNetPage("groove-complete"); };
+
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [play0, options0] = useSound(songList[0].filePath, {onend: onSongEnd});
+    const [play1, options1] = useSound(songList[1].filePath, {onend: onSongEnd});
+    const [play2, options2] = useSound(songList[2].filePath, {onend: onSongEnd});
+    const [play3, options3] = useSound(songList[3].filePath, {onend: onSongEnd});
+    const [play4, options4] = useSound(songList[4].filePath, {onend: onLastSongEnd});
+
+    const players = [
+        {play: play0, pause: options0.pause, stop: options0.stop},
+        {play: play1, pause: options1.pause, stop: options1.stop},
+        {play: play2, pause: options2.pause, stop: options2.stop},
+        {play: play3, pause: options3.pause, stop: options3.stop},
+        {play: play4, pause: options4.pause, stop: options4.stop},
+    ];
+
+    const updatePlayer = (currentIndex, newIndex) => {
+        players[currentIndex].stop();
+        if (isPlaying) {
+            if (newIndex < 0) players[0].play();
+            else if (newIndex < 5) players[newIndex].play();
+            else props.onNextPage("groove-complete");
+        }
+    };
+
+    const playPause = () => {
+        setIsPlaying(!isPlaying);
+        !isPlaying ? players[currentSongIndex].play() : players[currentSongIndex].pause();
+    };
 
     
-    const [isPlaying0, setIsPlaying0] = useState(false);
-    const [isPlaying1, setIsPlaying1] = useState(false);
-    const [isPlaying2, setIsPlaying2] = useState(false);
-    const [isPlaying3, setIsPlaying3] = useState(false);
-    const [isPlaying4, setIsPlaying4] = useState(false);
-
-    const [currentSongIndex, setCurrentSongIndex] = useState(0);
-    const [currentSongPath, setCurrentSongPath] = useState((songList[currentSongIndex]).filePath);
-
-    const [play, {pause, stop}] = useSound(currentSongPath, {
-        onend: () => {
-            props.onNextPage("groove-complete");
-        }
-    });
-
-    const togglePlayButton0 = () => {
-        if (isPlaying0) {
-            pause();
-            setIsPlaying0(false);
-        } else {
-            play();
-            setIsPlaying0(true);
-        }
-    }
-
-    const togglePlayButton1 = () => {
-        if (isPlaying1) {
-            pause();
-            setIsPlaying1(false);
-        } else {
-            play();
-            setIsPlaying1(true);
-        }
-    }
-
-    const togglePlayButton2 = () => {
-        if (isPlaying2) {
-            pause();
-            setIsPlaying2(false);
-        } else {
-            play();
-            setIsPlaying2(true);
-        }
-    }
-
-    const togglePlayButton3 = () => {
-        if (isPlaying3) {
-            pause();
-            setIsPlaying3(false);
-        } else {
-            play();
-            setIsPlaying3(true);
-        }
-    }
-
-    const togglePlayButton4 = () => {
-        if (isPlaying4) {
-            pause();
-            setIsPlaying4(false);
-        } else {
-            play();
-            setIsPlaying4(true);
-        }
-    }
-
-    const clickBackSkip = () => {
-        const isPlaying = isPlaying0 || isPlaying1 || isPlaying2 || isPlaying3 || isPlaying4;
-        stop();
-
-        if (isPlaying0) {
-            setIsPlaying0(false);
-
-        }
-        if (isPlaying1) {
-            setIsPlaying1(false);
-        }
-        if (isPlaying2) {
-            setIsPlaying2(false);
-        }
-        if (isPlaying3) {
-            setIsPlaying3(false);
-        }
-        if (isPlaying4) {
-            setIsPlaying4(false);
-        }
-
-        if (currentSongIndex > 0) {
-            setCurrentSongPath(songList[currentSongIndex - 1].filePath);
-            setCurrentSongIndex(currentSongIndex - 1);
-        }
-    }
-
-    const clickForwardSkip = () => {
-        
-        const isPlaying = isPlaying0 || isPlaying1 || isPlaying2 || isPlaying3 || isPlaying4;
-        stop();
-
-        if (isPlaying0) {
-            setIsPlaying0(false);
-
-        }
-        if (isPlaying1) {
-            setIsPlaying1(false);
-        }
-        if (isPlaying2) {
-            setIsPlaying2(false);
-        }
-        if (isPlaying3) {
-            setIsPlaying3(false);
-        }
-        if (isPlaying4) {
-            setIsPlaying4(false);
-        }
-        
-        if (currentSongIndex < 4) {
-            setCurrentSongPath(songList[currentSongIndex + 1].filePath);
-            setCurrentSongIndex(currentSongIndex + 1);
-        }
-    }
-
     let playPauseButton;
-    if (currentSongIndex == 0) {
-        if (isPlaying0) {
-            playPauseButton = <button className="song-control-button" onClick={togglePlayButton0}><img className="icon" id="pause0" src="song-player-buttons/Pause.svg" alt="pause icon"/></button>
-        } else {
-            playPauseButton = <button className="song-control-button" onClick={togglePlayButton0}><img className="icon" id="play0" src="song-player-buttons/Play.svg" alt="play icon"/></button>
-        }
-    } else if (currentSongIndex == 1) {
-        if (isPlaying1) {
-            playPauseButton = <button className="song-control-button" onClick={togglePlayButton1}><img className="icon" id="pause1" src="song-player-buttons/Pause.svg" alt="pause icon"/></button>
-        } else {
-            playPauseButton = <button className="song-control-button" onClick={togglePlayButton1}><img className="icon" id="play1" src="song-player-buttons/Play.svg" alt="play icon"/></button>
-        }
-    } else if (currentSongIndex == 2) {
-        if (isPlaying2) {
-            playPauseButton = <button className="song-control-button" onClick={togglePlayButton2}><img className="icon" id="pause2" src="song-player-buttons/Pause.svg" alt="pause icon"/></button>
-        } else {
-            playPauseButton = <button className="song-control-button" onClick={togglePlayButton2}><img className="icon" id="play2" src="song-player-buttons/Play.svg" alt="play icon"/></button>
-        }
-    } else if (currentSongIndex == 3) {
-        if (isPlaying3) {
-            playPauseButton = <button className="song-control-button" onClick={togglePlayButton3}><img className="icon" id="pause3" src="song-player-buttons/Pause.svg" alt="pause icon"/></button>
-        } else {
-            playPauseButton = <button className="song-control-button" onClick={togglePlayButton3}><img className="icon" id="play3" src="song-player-buttons/Play.svg" alt="play icon"/></button>
-        }
-    } else if (currentSongIndex == 4) {
-        if (isPlaying4) {
-            playPauseButton = <button className="song-control-button" onClick={togglePlayButton4}><img className="icon" id="pause4" src="song-player-buttons/Pause.svg" alt="pause icon"/></button>
-        } else {
-            playPauseButton = <button className="song-control-button" onClick={togglePlayButton4}><img className="icon" id="play4" src="song-player-buttons/Play.svg" alt="play icon"/></button>
-        }
+    if (isPlaying) {
+        playPauseButton = <img className="icon" id="pause0" src="song-player-buttons/Pause.svg" alt="pause icon"/>
+    } else {
+        playPauseButton = <img className="icon" id="play0" src="song-player-buttons/Play.svg" alt="play icon"/>
     }
-
-    let song1;
-    if (currentSongIndex > 0) {
-        song1 = songList[currentSongIndex-1];
-    } else {song1 = null}
-
-    let song2 = songList[currentSongIndex];
-
-    let song3;
-    if (currentSongIndex < 4) {
-        song3 = songList[currentSongIndex+1];
-    } else {song1 = null}
 
     return (
         <div className="song-player">
             <div className="playlist-container">
                 <div className="song-card">
-                    <div className="song-visual"></div>
-                    {song1 != null && <p className="song-title">{song1.title}</p>}
-                    {song1 != null && <p className="artist-name">{song1.artist}</p>}
-                    {song1 == null && <p className="song-title"></p>}
-                    {song1 == null && <p className="artist-name"></p>}
+                    {currentSongIndex > 0 && <div className="song-visual"></div>}
+                    {currentSongIndex > 0 && <p className="song-title">{songList[currentSongIndex - 1].title}</p>}
+                    {currentSongIndex > 0 && <p className="artist-name">{songList[currentSongIndex - 1].artist}</p>}
                 </div>
                 <div className="song-card">
                     <div className="song-visual"></div>
-                    <p className="song-title">{song2.title}</p>
-                    <p className="artist-name">{song2.artist}</p>
+                    <p className="song-title">{songList[currentSongIndex].title}</p>
+                    <p className="artist-name">{songList[currentSongIndex].artist}</p>
                 </div>
                 <div className="song-card">
-                    <div className="song-visual"></div>
-                    {song3 != null && <p className="song-title">{song3.title}</p>}
-                    {song3 != null && <p className="artist-name">{song3.artist}</p>}
-                    {song3 == null && <p className="song-title"></p>}
-                    {song3 == null && <p className="artist-name"></p>}
+                    {currentSongIndex < 4 && <div className="song-visual"></div>}
+                    {currentSongIndex < 4 && <p className="song-title">{songList[currentSongIndex + 1].title}</p>}
+                    {currentSongIndex < 4 && <p className="artist-name">{songList[currentSongIndex + 1].artist}</p>}
                 </div>
             </div>
             <div className="play-controls">
-                <button className="song-control-button" onClick={clickBackSkip}>
+                <button className="song-control-button" id="backSkip" onClick={back}>
                     <img className="icon" src="song-player-buttons/BackSkip.svg" alt="back skip icon"/>
                 </button>
-                {playPauseButton}
-                <button className="song-control-button" onClick={clickForwardSkip}>
+                <button className="song-control-button" onClick={playPause}>
+                    {playPauseButton}
+                </button>
+                <button className="song-control-button" id="forwardSkip" onClick={forward}>
                     <img className="icon" src="song-player-buttons/ForwardSkip.svg" alt="forward skip icon"/>
                 </button>
             </div>
