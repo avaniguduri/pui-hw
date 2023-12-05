@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TopBar from "../top-bar";
 import './index.css';
+import { motion } from "framer-motion";
 
 function HomePage(props) {
     
@@ -16,7 +17,9 @@ function HomePage(props) {
                     <p className="project-title">Break<br/>the<br/>Block.</p>
                 </div>
                 <img className="centered-image" src="HomeImage.svg" alt="block on line in sketchy style"/>
-                <button className="button black-fill button-text white-text" onClick={handleButtonClick}>Let's go</button>
+                <div className="button-group">
+                    <motion.button className="button black-fill button-text white-text" whileHover={{ scale: [1,1.1] }} onClick={handleButtonClick}>Let's go</motion.button>
+                </div>
             </div>
         </div>
     );

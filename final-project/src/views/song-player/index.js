@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useSound from "use-sound";
+import './index.css';
+import { motion } from "framer-motion";
 
 function SongPlayer(props) {
 
@@ -62,11 +64,11 @@ function SongPlayer(props) {
     const [play4, options4] = useSound(songList[4].filePath, {onend: onLastSongEnd});
 
     const players = [
-        {play: play0, pause: options0.pause, stop: options0.stop},
-        {play: play1, pause: options1.pause, stop: options1.stop},
-        {play: play2, pause: options2.pause, stop: options2.stop},
-        {play: play3, pause: options3.pause, stop: options3.stop},
-        {play: play4, pause: options4.pause, stop: options4.stop},
+        {play: play0, pause: options0.pause, stop: options0.stop, sound : options0.sound, duration : options0.duration},
+        {play: play1, pause: options1.pause, stop: options1.stop, sound : options1.sound, duration : options1.duration},
+        {play: play2, pause: options2.pause, stop: options2.stop, sound : options2.sound, duration : options2.duration},
+        {play: play3, pause: options3.pause, stop: options3.stop, sound : options3.sound, duration : options3.duration},
+        {play: play4, pause: options4.pause, stop: options4.stop, sound : options4.sound, duration : options4.duration}
     ];
 
     const updatePlayer = (currentIndex, newIndex) => {
@@ -86,40 +88,73 @@ function SongPlayer(props) {
     
     let playPauseButton;
     if (isPlaying) {
-        playPauseButton = <img className="icon" id="pause0" src="song-player-buttons/Pause.svg" alt="pause icon"/>
+        playPauseButton = <img id="pause" src="song-player-buttons/Pause.svg" alt="pause icon"/>
     } else {
-        playPauseButton = <img className="icon" id="play0" src="song-player-buttons/Play.svg" alt="play icon"/>
+        playPauseButton = <img id="play" src="song-player-buttons/Play.svg" alt="play icon"/>
+    }
+
+    const handleButtonClick = () => {
+        players[currentSongIndex].stop();
+        props.onNextPage("groove-complete");
+    };
+
+    const getTimeLeft = () => {
+        // used to https://github.com/goldfire/howler.js#documentation to understand what seek does (how to get the current time position of the song)
+        let secInCurrentSong = (players[currentSongIndex].duration)/1000 - players[currentSongIndex].sound.seek([]);
+        let secInRest;
+        for (let i = currentSongIndex + 1; i < songList.length; i++) {
+            secInRest += players[i].duration/1000;
+        }
+        return Math.ceil((secInCurrentSong + secInRest)/60);
     }
 
     return (
         <div className="song-player">
-            <div className="playlist-container">
-                <div className="song-card">
-                    {currentSongIndex > 0 && <div className="song-visual"></div>}
-                    {currentSongIndex > 0 && <p className="song-title">{songList[currentSongIndex - 1].title}</p>}
-                    {currentSongIndex > 0 && <p className="artist-name">{songList[currentSongIndex - 1].artist}</p>}
-                </div>
-                <div className="song-card">
+            <h2 className="time-left">{getTimeLeft()} min left</h2>
+            <div className="playlist-view playlist-container">
+
+                {currentSongIndex > 0 &&
+                    <div className="song-card">
+                        <div className="song-visual"></div>
+                        <div className="song-text-info">
+                            <p className="song-title">{songList[currentSongIndex - 1].title}</p>
+                            <p className="artist-name">{songList[currentSongIndex - 1].artist}</p>
+                        </div>
+                    </div>
+                }
+
+                <div className="song-card current">
                     <div className="song-visual"></div>
-                    <p className="song-title">{songList[currentSongIndex].title}</p>
-                    <p className="artist-name">{songList[currentSongIndex].artist}</p>
+                    <div className="song-text-info">
+                        <p className="song-title">{songList[currentSongIndex].title}</p>
+                        <p className="artist-name">{songList[currentSongIndex].artist}</p>
+                    </div>
                 </div>
-                <div className="song-card">
-                    {currentSongIndex < 4 && <div className="song-visual"></div>}
-                    {currentSongIndex < 4 && <p className="song-title">{songList[currentSongIndex + 1].title}</p>}
-                    {currentSongIndex < 4 && <p className="artist-name">{songList[currentSongIndex + 1].artist}</p>}
-                </div>
+
+                {currentSongIndex < 4 &&
+                    <div className="song-card">
+                        <div className="song-visual"></div>
+                        <div className="song-text-info">
+                            <p className="song-title">{songList[currentSongIndex + 1].title}</p>
+                            <p className="artist-name">{songList[currentSongIndex + 1].artist}</p>
+                        </div>
+                    </div>
+                }
+
             </div>
             <div className="play-controls">
-                <button className="song-control-button" id="backSkip" onClick={back}>
-                    <img className="icon" src="song-player-buttons/BackSkip.svg" alt="back skip icon"/>
-                </button>
-                <button className="song-control-button" onClick={playPause}>
+                <motion.button className="song-control-button" whileTap={{ scale : [1, 1.2, 1] }} onClick={back}>
+                    <img src="song-player-buttons/BackSkip.svg" alt="back skip icon"/>
+                </motion.button>
+                <motion.button className="song-control-button" whileTap={{ scale : [1, 1.2, 1] }} onClick={playPause}>
                     {playPauseButton}
-                </button>
-                <button className="song-control-button" id="forwardSkip" onClick={forward}>
-                    <img className="icon" src="song-player-buttons/ForwardSkip.svg" alt="forward skip icon"/>
-                </button>
+                </motion.button>
+                <motion.button className="song-control-button" id="forwardSkip" whileTap={{ scale : [1, 1.2, 1] }} onClick={forward}>
+                    <img src="song-player-buttons/ForwardSkip.svg" alt="forward skip icon"/>
+                </motion.button>
+            </div>
+            <div className="button-group">
+                <motion.button className="button no-fill button-text dark-text" whileHover={{ scale: [1,1.1] }} onClick={handleButtonClick}>End activity early</motion.button>
             </div>
         </div>
     );

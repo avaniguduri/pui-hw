@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import TopBar from "../top-bar";
+import './index.css';
+import { motion } from "framer-motion";
 
 function GrooveCompletePage(props) {
     
@@ -19,19 +21,13 @@ function GrooveCompletePage(props) {
         <div className="page-with-topbar">
             <TopBar showBackArrow="true" pageTitle="THE GROOVE" onNextPage={props.onNextPage} lastPage="groove-activity"/>
             <div className="sized-page">
-                <div className="prompt-question">
-                    <h2>Gotten into the right headspace yet? It’s time to start writing.</h2>
-                </div>
+                <h2>Gotten into the right headspace yet? It’s time to start writing.</h2>
                 <img className="centered-image" src="BrokenBlock.svg" alt="block in exploded pieces on line in sketchy style"/>
-                <div className="button no-fill">
-                <button className="button-text dark-text" onClick={handleSaveButtonClick}>Save activity</button>
-                </div>
-                <div className="button-pair">
-                    <div className="button no-fill">
-                    <button className="button-text dark-text" onClick={handleHomeButtonClick}>Go to home</button>
-                    </div>
-                    <div className="button black-fill">
-                        <button className="button-text white-text" onClick={handleAgainButtonClick}>Try again</button>
+                <div className="button-group">
+                    <motion.button className="button no-fill button-text dark-text" whileHover={{ scale: [1,1.1] }} onClick={handleSaveButtonClick}>Save activity</motion.button>
+                    <div className="button-pair">
+                        <motion.button className="button no-fill button-text dark-text" whileHover={{ scale: [1,1.1] }} onClick={handleHomeButtonClick}>Go to home</motion.button>
+                        <motion.button className="button black-fill button-text white-text" whileHover={{ scale: [1,1.1] }} onClick={handleAgainButtonClick}>Try again</motion.button>
                     </div>
                 </div>
             </div>

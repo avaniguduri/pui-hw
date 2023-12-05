@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TopBar from "../top-bar";
+import { motion } from "framer-motion";
 
 function NewActivityPage(props) {
     
@@ -13,7 +14,9 @@ function NewActivityPage(props) {
             <div className="sized-page">
                 <h2>"The first draft is just you telling yourself the story"</h2>
                 <img className="centered-image" src="BreakingBlock.svg" alt="block in pieces on line in sketchy style"/>
-                <button className="button black-fill button-text white-text" onClick={handleButtonClick}>Find a new activity</button>
+                <div className="button-group">
+                    <motion.button className="button black-fill button-text white-text" whileHover={{ scale: [1,1.1] }} onClick={handleButtonClick}>Find a new activity</motion.button>
+                </div>
             </div>
         </div>
     );

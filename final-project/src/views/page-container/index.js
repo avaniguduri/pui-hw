@@ -7,6 +7,8 @@ import ProjectVibePage from "../project-vibe";
 import PlaylistPage from "../playlist";
 import GrooveActivityPage from "../groove-activity";
 import GrooveCompletePage from "../groove-complete";
+import './index.css';
+import { motion } from "framer-motion";
 
 
 function PageContainer() {

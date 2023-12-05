@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TopBar from "../top-bar";
 import './index.css';
+import { motion } from "framer-motion";
 
 function GrooveInfoPage(props) {
     
@@ -18,8 +19,10 @@ function GrooveInfoPage(props) {
                     <h2 className="purple-text bold-text">Listen to a playlist.</h2>
                     <h2>Songs match the mood of your project in order to help you get back into the headspace of your project.</h2>
                 </div>
-                <p className="activity-subdescription">Choose to read through past writing, look at relevant notes/sketches, or close your head to imagine your story as the songs play.</p>
-                <button className="button black-fill button-text white-text" onClick={handleButtonClick}>Start</button>
+                <p className="activity-subdescription">Choose to read through past writing, look at relevant notes/sketches, or close your eyes to imagine your story as the songs play.</p>
+                <div className="button-group">
+                    <motion.button className="button black-fill button-text white-text" whileHover={{ scale: [1,1.1] }} onClick={handleButtonClick}>Start</motion.button>
+                </div>
             </div>
         </div>
     );

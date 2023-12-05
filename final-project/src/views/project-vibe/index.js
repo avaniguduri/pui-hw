@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TopBar from "../top-bar";
 import './index.css';
+import { motion } from "framer-motion";
 
 function ProjectVibePage(props) {
     
@@ -19,7 +20,9 @@ function ProjectVibePage(props) {
                     <option className="button-text" value="epic">Epic</option>
                     <option className="button-text" value="Melancholic">Melancholic</option>
                 </select>
-                <button className="button black-fill button-text white-text" onClick={handleButtonClick}>Submit</button>
+                <div className="button-group">
+                    <motion.button className="button black-fill button-text white-text" whileHover={{ scale: [1,1.1] }} onClick={handleButtonClick}>Submit</motion.button>
+                </div>
             </div>
         </div>
     );

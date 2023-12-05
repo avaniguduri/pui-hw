@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import './index.css';
+import { motion } from "framer-motion";
 
 function TopBar(props) {
     
@@ -18,7 +19,7 @@ function TopBar(props) {
 
     return (
         <div className="top-bar">
-            <div className="arrow-heading-group">
+            <div className="arrow-heading-group upper">
                 {backArrow}
                 <h4>{props.pageTitle}</h4>
             </div>
