@@ -12,7 +12,7 @@ function SongPlayer(props) {
     }
 
     let songList;
-    if (props.projectVibe == "spooky") {
+    if (props.projectVibe === "spooky") {
         songList = [
             new Song("Inside the Asylum", "GREGOIRE LOURME", "/InsideTheAsylum.mp3"),
             new Song("Cros", "HYPNOCRATES", "/Crows.mp3"),
@@ -20,7 +20,7 @@ function SongPlayer(props) {
             new Song("Scary Halloween Cinematic Trailer", "ALEX CHE", "/ScaryHalloweenCinematicTrailer.mp3"),
             new Song("Scary", "MATTI PAALANEN", "/Scary.mp3"),
         ];
-    } else if (props.projectVibe == "epic") {
+    } else if (props.projectVibe === "epic") {
         songList = [
             new Song("Black & White", "ARROW & OLIVE", "/Black&White.mp3"),
             new Song("Endless Dreams", "INFRACTION", "/EndlessDreams.mp3"),
@@ -98,19 +98,36 @@ function SongPlayer(props) {
         props.onNextPage("groove-complete");
     };
 
+    let totalSec = 0;
+    for (let i = 0; i < songList.length; i++) {
+        totalSec += players[i].duration/1000;
+    };
+    let totalMin = Math.ceil(totalSec/60);
+
+    const [timeLeft, setTimeLeft] = useState(totalMin);
+
     const getTimeLeft = () => {
         // used to https://github.com/goldfire/howler.js#documentation to understand what seek does (how to get the current time position of the song)
-        let secInCurrentSong = (players[currentSongIndex].duration)/1000 - players[currentSongIndex].sound.seek([]);
-        let secInRest;
-        for (let i = currentSongIndex + 1; i < songList.length; i++) {
-            secInRest += players[i].duration/1000;
+        if (players[currentSongIndex].sound) {
+            let secInCurrentSong = (players[currentSongIndex].duration)/1000 - (players[currentSongIndex].sound).seek();
+            let secInRest = 0;
+            for (let i = currentSongIndex + 1; i < songList.length; i++) {
+                secInRest += players[i].duration/1000;
+            };
+            setTimeLeft(Math.ceil((secInCurrentSong + secInRest)/60));
         }
-        return Math.ceil((secInCurrentSong + secInRest)/60);
-    }
+    };
+
+    useEffect( () => {
+        // update timeLeft every second
+        const interval = setInterval(getTimeLeft, 1000);
+        console.log(timeLeft);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <div className="song-player">
-            <h2 className="time-left">{getTimeLeft()} min left</h2>
+            <h2 className="time-left">{timeLeft} min left</h2>
             <div className="playlist-view playlist-container">
 
                 {currentSongIndex > 0 &&
