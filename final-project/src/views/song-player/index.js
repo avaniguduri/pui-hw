@@ -5,37 +5,38 @@ import { motion } from "framer-motion";
 
 function SongPlayer(props) {
 
-    function Song(title, artist, filePath) {
+    function Song(title, artist, filePath, length) {
         this.title = title;
         this.artist = artist;
         this.filePath = filePath;
+        this.length = length;
     }
 
     let songList;
-    if (props.projectVibe === "spooky") {
+    if (props.projectVibe == "spooky") {
         songList = [
-            new Song("Inside the Asylum", "GREGOIRE LOURME", "/InsideTheAsylum.mp3"),
-            new Song("Cros", "HYPNOCRATES", "/Crows.mp3"),
-            new Song("Cthulhu Rising", "CRYPT OF INSOMNIA", "/CthulhuRising.mp3"),
-            new Song("Scary Halloween Cinematic Trailer", "ALEX CHE", "/ScaryHalloweenCinematicTrailer.mp3"),
-            new Song("Scary", "MATTI PAALANEN", "/Scary.mp3"),
+            new Song("Inside the Asylum", "GREGOIRE LOURME", "/InsideTheAsylum.mp3", 278),
+            new Song("Cros", "HYPNOCRATES", "/Crows.mp3", 256),
+            new Song("Cthulhu Rising", "CRYPT OF INSOMNIA", "/CthulhuRising.mp3", 154),
+            new Song("Scary Halloween Cinematic Trailer", "ALEX CHE", "/ScaryHalloweenCinematicTrailer.mp3", 147),
+            new Song("Scary", "MATTI PAALANEN", "/Scary.mp3", 154),
         ];
-    } else if (props.projectVibe === "epic") {
+    } else if (props.projectVibe == "epic") {
         songList = [
-            new Song("Black & White", "ARROW & OLIVE", "/Black&White.mp3"),
-            new Song("Endless Dreams", "INFRACTION", "/EndlessDreams.mp3"),
-            new Song("Rise to Glory", "GREGOIRE LOURME", "/RiseToGlory.mp3"),
-            new Song("The Storm", "INFRACTION", "/TheStorm.mp3"),
-            new Song("War (Epic Battle Trailer)", "ENERGYSOUND", "/WarEpicBattleTrailer.mp3"),
+            new Song("Black & White", "ARROW & OLIVE", "/Black&White.mp3", 244),
+            new Song("Endless Dreams", "INFRACTION", "/EndlessDreams.mp3", 154),
+            new Song("Rise to Glory", "GREGOIRE LOURME", "/RiseToGlory.mp3", 162),
+            new Song("The Storm", "INFRACTION", "/TheStorm.mp3", 145),
+            new Song("War (Epic Battle Trailer)", "ENERGYSOUND", "/WarEpicBattleTrailer.mp3", 155),
         ];
     }
     else {
         songList = [
-            new Song("For Those Whom I've Met", "THE ROOMS", "/ForThoseWhomIveMet.mp3"),
-            new Song("Find a Way", "THE DLX", "/FindAWay.mp3"),
-            new Song("Tiptoe", "RIVERS AND LEAFS", "/Tiptoe.mp3"),
-            new Song("I Say That I Feel Better", "KRISTIAN VULIJAR", "/ISayThatIFeelBetter.mp3"),
-            new Song("Destruction Mill", "ACOUSTIC ASTRONAUT", "/DestructionMill.mp3"),
+            new Song("For Those Whom I've Met", "THE ROOMS", "/ForThoseWhomIveMet.mp3", 194),
+            new Song("Find a Way", "THE DLX", "/FindAWay.mp3", 166),
+            new Song("Tiptoe", "RIVERS AND LEAFS", "/Tiptoe.mp3", 272),
+            new Song("I Say That I Feel Better", "KRISTIAN VULIJAR", "/ISayThatIFeelBetter.mp3", 132),
+            new Song("Destruction Mill", "ACOUSTIC ASTRONAUT", "/DestructionMill.mp3", 223),
         ];
     }
     
@@ -54,7 +55,7 @@ function SongPlayer(props) {
     };
 
     const onSongEnd = () => {document.getElementById("forwardSkip").click(); };
-    const onLastSongEnd = () => {props.onNetPage("groove-complete"); };
+    const onLastSongEnd = () => {props.onNextPage("groove-complete"); };
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [play0, options0] = useSound(songList[0].filePath, {onend: onSongEnd});
@@ -64,11 +65,11 @@ function SongPlayer(props) {
     const [play4, options4] = useSound(songList[4].filePath, {onend: onLastSongEnd});
 
     const players = [
-        {play: play0, pause: options0.pause, stop: options0.stop, sound : options0.sound, duration : options0.duration},
-        {play: play1, pause: options1.pause, stop: options1.stop, sound : options1.sound, duration : options1.duration},
-        {play: play2, pause: options2.pause, stop: options2.stop, sound : options2.sound, duration : options2.duration},
-        {play: play3, pause: options3.pause, stop: options3.stop, sound : options3.sound, duration : options3.duration},
-        {play: play4, pause: options4.pause, stop: options4.stop, sound : options4.sound, duration : options4.duration}
+        {play: play0, pause: options0.pause, stop: options0.stop, sound : options0.sound},
+        {play: play1, pause: options1.pause, stop: options1.stop, sound : options1.sound},
+        {play: play2, pause: options2.pause, stop: options2.stop, sound : options2.sound},
+        {play: play3, pause: options3.pause, stop: options3.stop, sound : options3.sound},
+        {play: play4, pause: options4.pause, stop: options4.stop, sound : options4.sound}
     ];
 
     const updatePlayer = (currentIndex, newIndex) => {
@@ -100,19 +101,19 @@ function SongPlayer(props) {
 
     let totalSec = 0;
     for (let i = 0; i < songList.length; i++) {
-        totalSec += players[i].duration/1000;
+        totalSec += songList[i].length;
     };
-    let totalMin = Math.ceil(totalSec/60);
+    const totalMin = Math.ceil(totalSec/60);
 
     const [timeLeft, setTimeLeft] = useState(totalMin);
 
     const getTimeLeft = () => {
         // used to https://github.com/goldfire/howler.js#documentation to understand what seek does (how to get the current time position of the song)
         if (players[currentSongIndex].sound) {
-            let secInCurrentSong = (players[currentSongIndex].duration)/1000 - (players[currentSongIndex].sound).seek();
+            let secInCurrentSong = (songList[currentSongIndex].length)/ - (players[currentSongIndex].sound).seek();
             let secInRest = 0;
             for (let i = currentSongIndex + 1; i < songList.length; i++) {
-                secInRest += players[i].duration/1000;
+                secInRest += songList[i].length;
             };
             setTimeLeft(Math.ceil((secInCurrentSong + secInRest)/60));
         }
@@ -121,7 +122,6 @@ function SongPlayer(props) {
     useEffect( () => {
         // update timeLeft every second
         const interval = setInterval(getTimeLeft, 1000);
-        console.log(timeLeft);
         return () => clearInterval(interval);
     }, []);
 
