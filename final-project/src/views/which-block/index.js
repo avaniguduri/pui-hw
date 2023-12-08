@@ -1,12 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 import TopBar from "../top-bar";
 import './index.css';
 import { motion } from "framer-motion";
 
 function WhichBlockPage(props) {
     
-    const handleButtonClick = () => {
+    const handleButtonClickInterest = () => {
         props.onNextPage("groove-info");
+    };
+
+    const handleButtonClickMotivation = () => {
+        props.onNextPage("sprint-info");
+    };
+
+    const handleButtonClickContent = () => {
+        props.onNextPage("break-it-info");
     };
 
     const variants = {
@@ -26,9 +34,9 @@ function WhichBlockPage(props) {
             <div className="sized-page">
                     <h2>What's blocking you today?</h2>
                     <div className="tall-button-group">
-                        <motion.button className="button no-fill tall button-text dark-text" whileHover="animate" variants={variants} transition="transition" onClick={handleButtonClick}>I’m not interested in a specific project anymore</motion.button>
-                        <motion.button className="button no-fill tall button-text dark-text" whileHover="animate" variants={variants} transition="transition" onClick={handleButtonClick}>I just don’t feel motivated to write today</motion.button>
-                        <motion.button className="button no-fill tall button-text dark-text" whileHover="animate" variants={variants} transition="transition" onClick={handleButtonClick}>I don’t know how to start or to write what I want to say</motion.button>
+                        <motion.button className="button no-fill tall button-text dark-text" whileHover="animate" variants={variants} transition="transition" onClick={handleButtonClickInterest}>I’m not interested in a specific project anymore</motion.button>
+                        <motion.button className="button no-fill tall button-text dark-text" whileHover="animate" variants={variants} transition="transition" onClick={handleButtonClickMotivation}>I just don’t feel motivated to write today</motion.button>
+                        <motion.button className="button no-fill tall button-text dark-text" whileHover="animate" variants={variants} transition="transition" onClick={handleButtonClickContent}>I don’t know how to start or to write what I want to say</motion.button>
                     </div>
             </div>
         </div>

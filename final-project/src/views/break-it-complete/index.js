@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import TopBar from "../top-bar";
-import './index.css';
 import { motion } from "framer-motion";
 
-function GrooveCompletePage(props) {
+function BreakItDownCompletePage(props) {
     
     const handleAgainButtonClick = () => {
-        props.onNextPage("groove-info");
+        props.onNextPage("break-it-info");
     };
 
     const handleHomeButtonClick = () => {
@@ -19,9 +18,9 @@ function GrooveCompletePage(props) {
     
     return (
         <div className="page-with-topbar">
-            <TopBar showBackArrow="false" pageTitle="THE GROOVE" onNextPage={props.onNextPage} lastPage="groove-activity"/>
+            <TopBar showBackArrow="false" pageTitle="BREAK IT DOWN" onNextPage={props.onNextPage} lastPage="break-it-activity"/>
             <div className="sized-page">
-                <h2>Gotten into the right headspace yet? It’s time to start writing.</h2>
+                <h2>Got a scene going? Keep on writing.</h2>
                 <img className="centered-image" src="BrokenBlock.svg" alt="block in exploded pieces on line in sketchy style"/>
                 <div className="button-group">
                     <motion.button className="button no-fill button-text dark-text" whileHover={{ scale: [1,1.1] }} onClick={handleSaveButtonClick}>Save activity</motion.button>
@@ -35,4 +34,4 @@ function GrooveCompletePage(props) {
     );
 }
 
-export default GrooveCompletePage;
+export default BreakItDownCompletePage;

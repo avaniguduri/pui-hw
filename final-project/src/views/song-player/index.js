@@ -15,28 +15,28 @@ function SongPlayer(props) {
     let songList;
     if (props.projectVibe == "spooky") {
         songList = [
-            new Song("Inside the Asylum", "GREGOIRE LOURME", "/InsideTheAsylum.mp3", 278),
-            new Song("Cros", "HYPNOCRATES", "/Crows.mp3", 256),
-            new Song("Cthulhu Rising", "CRYPT OF INSOMNIA", "/CthulhuRising.mp3", 154),
-            new Song("Scary Halloween Cinematic Trailer", "ALEX CHE", "/ScaryHalloweenCinematicTrailer.mp3", 147),
-            new Song("Scary", "MATTI PAALANEN", "/Scary.mp3", 154),
+            new Song("Inside the Asylum", "GREGOIRE LOURME", "InsideTheAsylum.mp3", 278),
+            new Song("Cros", "HYPNOCRATES", "Crows.mp3", 256),
+            new Song("Cthulhu Rising", "CRYPT OF INSOMNIA", "CthulhuRising.mp3", 154),
+            new Song("Scary Halloween Cinematic Trailer", "ALEX CHE", "ScaryHalloweenCinematicTrailer.mp3", 147),
+            new Song("Scary", "MATTI PAALANEN", "Scary.mp3", 154),
         ];
     } else if (props.projectVibe == "epic") {
         songList = [
-            new Song("Black & White", "ARROW & OLIVE", "/Black&White.mp3", 244),
-            new Song("Endless Dreams", "INFRACTION", "/EndlessDreams.mp3", 154),
-            new Song("Rise to Glory", "GREGOIRE LOURME", "/RiseToGlory.mp3", 162),
-            new Song("The Storm", "INFRACTION", "/TheStorm.mp3", 145),
-            new Song("War (Epic Battle Trailer)", "ENERGYSOUND", "/WarEpicBattleTrailer.mp3", 155),
+            new Song("Black & White", "ARROW & OLIVE", "Black&White.mp3", 244),
+            new Song("Endless Dreams", "INFRACTION", "EndlessDreams.mp3", 154),
+            new Song("Rise to Glory", "GREGOIRE LOURME", "RiseToGlory.mp3", 162),
+            new Song("The Storm", "INFRACTION", "TheStorm.mp3", 145),
+            new Song("War (Epic Battle Trailer)", "ENERGYSOUND", "WarEpicBattleTrailer.mp3", 155),
         ];
     }
     else {
         songList = [
-            new Song("For Those Whom I've Met", "THE ROOMS", "/ForThoseWhomIveMet.mp3", 194),
-            new Song("Find a Way", "THE DLX", "/FindAWay.mp3", 166),
-            new Song("Tiptoe", "RIVERS AND LEAFS", "/Tiptoe.mp3", 272),
-            new Song("I Say That I Feel Better", "KRISTIAN VULIJAR", "/ISayThatIFeelBetter.mp3", 132),
-            new Song("Destruction Mill", "ACOUSTIC ASTRONAUT", "/DestructionMill.mp3", 223),
+            new Song("For Those Whom I've Met", "THE ROOMS", "ForThoseWhomIveMet.mp3", 194),
+            new Song("Find a Way", "THE DLX", "FindAWay.mp3", 166),
+            new Song("Tiptoe", "RIVERS AND LEAFS", "Tiptoe.mp3", 272),
+            new Song("I Say That I Feel Better", "KRISTIAN VULIJAR", "ISayThatIFeelBetter.mp3", 132),
+            new Song("Destruction Mill", "ACOUSTIC ASTRONAUT", "DestructionMill.mp3", 223),
         ];
     }
     
@@ -89,9 +89,9 @@ function SongPlayer(props) {
     
     let playPauseButton;
     if (isPlaying) {
-        playPauseButton = <img id="pause" src="song-player-buttons/Pause.svg" alt="pause icon"/>
+        playPauseButton = <img id="pause" src="song-player-buttons/Pause.svg" alt="pause icon"/>;
     } else {
-        playPauseButton = <img id="play" src="song-player-buttons/Play.svg" alt="play icon"/>
+        playPauseButton = <img id="play" src="song-player-buttons/Play.svg" alt="play icon"/>;
     }
 
     const handleButtonClick = () => {
@@ -99,18 +99,15 @@ function SongPlayer(props) {
         props.onNextPage("groove-complete");
     };
 
-    let totalSec = 0;
-    for (let i = 0; i < songList.length; i++) {
-        totalSec += songList[i].length;
-    };
+    let totalSec = songList.map((song) => song.length).reduce((totalLength, songLength) => totalLength + songLength, 0);
     const totalMin = Math.ceil(totalSec/60);
 
     const [timeLeft, setTimeLeft] = useState(totalMin);
 
     const getTimeLeft = () => {
         // used to https://github.com/goldfire/howler.js#documentation to understand what seek does (how to get the current time position of the song)
-        if (players[currentSongIndex].sound) {
-            let secInCurrentSong = (songList[currentSongIndex].length)/ - (players[currentSongIndex].sound).seek();
+        if (isPlaying) {
+            let secInCurrentSong = (songList[currentSongIndex].length) - (players[currentSongIndex].sound).seek();
             let secInRest = 0;
             for (let i = currentSongIndex + 1; i < songList.length; i++) {
                 secInRest += songList[i].length;
@@ -120,10 +117,10 @@ function SongPlayer(props) {
     };
 
     useEffect( () => {
-        // update timeLeft every second
+        getTimeLeft(); // updates when you click a button so there isn't the delay of a second which comes with interval
         const interval = setInterval(getTimeLeft, 1000);
         return () => clearInterval(interval);
-    }, []);
+    }, [currentSongIndex, isPlaying]);
 
     return (
         <div className="song-player">
