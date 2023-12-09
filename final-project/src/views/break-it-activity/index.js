@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import TopBar from "../top-bar";
 import { motion } from "framer-motion";
+import ConfirmExitPopup from "../confirm-exit-popup";
 
 function BreakItDownActivityPage(props) {
 
     const handleButtonClick = () => {
-        props.onNextPage("break-it-complete");
+        props.showConfirmPopup()
     };
 
     const [timeLeft, setTimeLeft] = useState(props.breakTime * 60);
@@ -44,12 +45,13 @@ function BreakItDownActivityPage(props) {
             <div className="sized-page">
                 <h2>What’s a phrase your main character might say?</h2>
                 <h2 className="time-left">{Math.ceil(timeLeft/60)} min left</h2>
-                {blooState ? <img className="centered-image" src="DeskBloo1.svg" alt="Bloo character in sketchy style"/>
-                    : <img className="centered-image" src="DeskBloo2.svg" alt="Bloo character in sketchy style"/>
+                {blooState ? <img className="centered-image" src="drawings/DeskBloo1.svg" alt="Bloo character on computer at desk in sketch style position 1"/>
+                    : <img className="centered-image" src="drawings/DeskBloo2.svg" alt="Bloo character on computer at desk in sketch style position 2"/>
                 }
                 <div className="button-group">
                     <motion.button className="button no-fill button-text dark-text" whileHover={{ scale: [1,1.1] }} onClick={handleButtonClick}>End activity early</motion.button>
                 </div>
+                <ConfirmExitPopup onNextPage={props.onNextPage} completePage="break-it-complete"/>
             </div>
         </div>
     );

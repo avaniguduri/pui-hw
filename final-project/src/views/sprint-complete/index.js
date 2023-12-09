@@ -13,27 +13,28 @@ function SprintCompletePage(props) {
     };
 
     const handleSaveButtonClick = () => {
+        props.saveActivity("Word Sprint");
         props.onNextPage("home");
     };
 
-    const blooWordCount = ((((Math.floor(Math.random() * 100)) % 6) * 100) + 100) + (Math.floor(Math.random() * 100));
+    const [blooWordCount, setBlooWordCount] = useState(((((Math.floor(Math.random() * 100)) % 6) * 100) + 100) + (Math.floor(Math.random() * 100)));
     const userWordCount = props.wordCount;
 
     let endText;
     let image1;
     let image2;
     if (blooWordCount > userWordCount) {
-        endText = <h2>You lose.</h2>;
-        image1 = "BlooWins1.svg";
-        image2 = "BlooWins2.svg";
+        endText = <h2 className="text-center">You lose. Bloo got {blooWordCount} words.</h2>;
+        image1 = "drawings/BlooWins1.svg";
+        image2 = "drawings/BlooWins2.svg";
     } else if (blooWordCount < userWordCount) {
-        endText = <h2>You win!</h2>;
-        image1 = "Trophy1.svg";
-        image2 = "Trophy2.svg";
+        endText = <h2 className="text-center">You win! Bloo got {blooWordCount} words.</h2>;
+        image1 = "drawings/Trophy1.svg";
+        image2 = "drawings/Trophy2.svg";
     } else {
-        endText = <h2>You tie.</h2>;
-        image1 = "BrokenBlock.svg";
-        image2 = "BrokenBlock.svg";
+        endText = <h2 className="text-center">You tie. Bloo got {blooWordCount} words.</h2>;
+        image1 = "drawings/BrokenBlock.svg";
+        image2 = "drawings/BrokenBlock.svg";
     }
 
     const [imageState, setImageState] = useState(image1);
@@ -62,7 +63,7 @@ function SprintCompletePage(props) {
                 {endText}
                 <img className="centered-image" src={imageState} alt="block in exploded pieces on line in sketchy style"/>
                 <div className="button-group">
-                    <motion.button className="button no-fill button-text dark-text" whileHover={{ scale: [1,1.1] }} onClick={handleSaveButtonClick}>Save activity</motion.button>
+                    <motion.button className="button no-fill button-text dark-text" whileHover={{ scale: [1,1.1] }} onClick={handleSaveButtonClick}>Log activity</motion.button>
                     <div className="button-pair">
                         <motion.button className="button no-fill button-text dark-text" whileHover={{ scale: [1,1.1] }} onClick={handleHomeButtonClick}>Go to home</motion.button>
                         <motion.button className="button black-fill button-text white-text" whileHover={{ scale: [1,1.1] }} onClick={handleAgainButtonClick}>Try again</motion.button>

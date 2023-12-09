@@ -10,6 +10,7 @@
     display: flex;
     flex-flow: row;
     gap: 20px;
+    margin-top: 24px;
 }
 
 .song-control-button {

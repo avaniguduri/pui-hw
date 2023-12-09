@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import useSound from "use-sound";
+import ConfirmExitPopup from "../confirm-exit-popup";
 import './index.css';
 import { motion } from "framer-motion";
 
@@ -89,14 +90,14 @@ function SongPlayer(props) {
     
     let playPauseButton;
     if (isPlaying) {
-        playPauseButton = <img id="pause" src="song-player-buttons/Pause.svg" alt="pause icon"/>;
+        playPauseButton = <img id="pause" src="icons/Pause.svg" alt="pause icon"/>;
     } else {
-        playPauseButton = <img id="play" src="song-player-buttons/Play.svg" alt="play icon"/>;
+        playPauseButton = <img id="play" src="icons/Play.svg" alt="play icon"/>;
     }
 
     const handleButtonClick = () => {
-        players[currentSongIndex].stop();
-        props.onNextPage("groove-complete");
+        players[currentSongIndex].pause();
+        props.showConfirmPopup();
     };
 
     let totalSec = songList.map((song) => song.length).reduce((totalLength, songLength) => totalLength + songLength, 0);
@@ -122,12 +123,28 @@ function SongPlayer(props) {
         return () => clearInterval(interval);
     }, [currentSongIndex, isPlaying]);
 
+    const handleKeyPress = useCallback((event) => {
+        if (event.key == "ArrowLeft") {
+            document.getElementById("backSkip").click();
+        } else if (event.key == "ArrowRight") {
+            document.getElementById("forwardSkip").click();
+        }
+      }, []);
+    
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+          document.removeEventListener('keydown', handleKeyPress);
+        };
+      }, [handleKeyPress]);
+
     return (
         <div className="song-player">
             <h2 className="time-left">{timeLeft} min left</h2>
             <div className="playlist-view playlist-container">
 
-                {currentSongIndex > 0 &&
+                {currentSongIndex > 0 ?
                     <div className="song-card">
                         <div className="song-visual"></div>
                         <div className="song-text-info">
@@ -135,6 +152,7 @@ function SongPlayer(props) {
                             <p className="artist-name">{songList[currentSongIndex - 1].artist}</p>
                         </div>
                     </div>
+                    : <div className="song-card-hidden"></div>
                 }
 
                 <div className="song-card current">
@@ -145,7 +163,7 @@ function SongPlayer(props) {
                     </div>
                 </div>
 
-                {currentSongIndex < 4 &&
+                {currentSongIndex < 4 ?
                     <div className="song-card">
                         <div className="song-visual"></div>
                         <div className="song-text-info">
@@ -153,23 +171,25 @@ function SongPlayer(props) {
                             <p className="artist-name">{songList[currentSongIndex + 1].artist}</p>
                         </div>
                     </div>
+                    : <div className="song-card-hidden"></div>
                 }
 
             </div>
             <div className="play-controls">
-                <motion.button className="song-control-button" whileTap={{ scale : [1, 1.2, 1] }} onClick={back}>
-                    <img src="song-player-buttons/BackSkip.svg" alt="back skip icon"/>
+                <motion.button className="song-control-button" id="backSkip" whileTap={{ scale : [1, 1.2, 1] }} onClick={back}>
+                    <img src="icons/BackSkip.svg" alt="back skip icon"/>
                 </motion.button>
-                <motion.button className="song-control-button" whileTap={{ scale : [1, 1.2, 1] }} onClick={playPause}>
+                <motion.button className="song-control-button" id="playPause" whileTap={{ scale : [1, 1.2, 1] }} onClick={playPause}>
                     {playPauseButton}
                 </motion.button>
                 <motion.button className="song-control-button" id="forwardSkip" whileTap={{ scale : [1, 1.2, 1] }} onClick={forward}>
-                    <img src="song-player-buttons/ForwardSkip.svg" alt="forward skip icon"/>
+                    <img src="icons/ForwardSkip.svg" alt="forward skip icon"/>
                 </motion.button>
             </div>
             <div className="button-group">
                 <motion.button className="button no-fill button-text dark-text" whileHover={{ scale: [1,1.1] }} onClick={handleButtonClick}>End activity early</motion.button>
             </div>
+            <ConfirmExitPopup onNextPage={props.onNextPage} completePage="groove-complete" song={players[currentSongIndex]}/>
         </div>
     );
 }

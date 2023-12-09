@@ -1,0 +1,20 @@
+/* exit confirmation pop-up component */
+
+/* Used ww3 to help me create the pop-up:
+https://www.w3schools.com/howto/howto_js_popup.asp*/
+
+#confirm-exit-popup {
+    position: absolute;
+    visibility: collapse;
+    background-color: rgb(255, 255, 255);
+    padding: 24px;
+    top: 40%;
+    border: 2px solid #5768FF;
+    border-radius: 4px;
+    width: 80%;
+}
+
+.pop-up-text {
+    text-align: left;
+    margin-bottom: 20px;
+}

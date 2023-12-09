@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import TopBar from "../top-bar";
+import "./index.css";
 import { motion } from "framer-motion";
 
 function SprintCountPage(props) {
@@ -36,9 +37,9 @@ function SprintCountPage(props) {
                 <div className="word-count-row">
                     <label>
                         Word count:
-                        <input type="text" value={wordCount} onChange={handleInputChange}/>
+                        <input type="text" id="word-count-input" value={wordCount} onChange={handleInputChange}/>
                     </label>
-                    {feedbackIcon ? <img src="Correct.svg" alt="cancel icon"/> : <img src="Incorrect.svg" alt="cancel icon"/>}
+                    {feedbackIcon ? <img src="icons/Correct.svg" alt="cancel icon"/> : <img src="icons/Incorrect.svg" alt="cancel icon"/>}
                 </div>
                 <div className="button-group">
                     <motion.button className="button black-fill button-text white-text" whileHover={{ scale: [1,1.1] }} onClick={handleButtonClick}>Submit</motion.button>

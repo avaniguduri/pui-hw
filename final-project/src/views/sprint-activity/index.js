@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import TopBar from "../top-bar";
+import ConfirmExitPopup from "../confirm-exit-popup";
 import { motion } from "framer-motion";
 
 function SprintActivityPage(props) {
 
     const handleButtonClick = () => {
-        props.onNextPage("sprint-count");
+        props.showConfirmPopup();
     };
 
     const [timeLeft, setTimeLeft] = useState(props.sprintTime * 60);
@@ -43,12 +44,13 @@ function SprintActivityPage(props) {
             <TopBar showBackArrow="true" pageTitle="WORD SPRINT" onNextPage={props.onNextPage} lastPage="sprint-info"/>
             <div className="sized-page">
                 <h2 className="time-left">{Math.ceil(timeLeft/60)} min left</h2>
-                {blooState ? <img className="centered-image" src="DeskBloo1.svg" alt="Bloo character in sketchy style"/>
-                    : <img className="centered-image" src="DeskBloo2.svg" alt="Bloo character in sketchy style"/>
+                {blooState ? <img className="centered-image" src="drawings/DeskBloo1.svg" alt="Bloo character in sketchy style"/>
+                    : <img className="centered-image" src="drawings/DeskBloo2.svg" alt="Bloo character in sketchy style"/>
                 }
                 <div className="button-group">
                     <motion.button className="button no-fill button-text dark-text" whileHover={{ scale: [1,1.1] }} onClick={handleButtonClick}>End activity early</motion.button>
                 </div>
+                <ConfirmExitPopup onNextPage={props.onNextPage} completePage="sprint-count"/>
             </div>
         </div>
     );

@@ -1,0 +1,14 @@
+.word-count-row {
+    display: flex;
+    flex-flow: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+#word-count-input {
+    margin-left: 8px;
+    width: 50%;
+}

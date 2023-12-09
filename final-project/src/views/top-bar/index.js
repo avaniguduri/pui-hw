@@ -12,7 +12,7 @@ function TopBar(props) {
 
     let backArrow;
     if (props.showBackArrow == "true") {
-        backArrow = <img className="back-arrow" src="BackArrow.svg" alt="left arrow icon" onClick={handleBackButtonClick}/>
+        backArrow = <img className="back-arrow" src="icons/BackArrow.svg" alt="left arrow icon" onClick={handleBackButtonClick}/>
     } else {
         backArrow = <div className="hidden-back-arrow"></div>
     }
