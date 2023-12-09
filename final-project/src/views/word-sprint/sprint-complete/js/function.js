@@ -28,9 +28,7 @@ function SprintCompletePage(props) {
     // LOGIC FOR ACTIVITY WINNER
 
     // generates Bloo's word count randomly from 100 to 700
-    const [blooWordCount, setBlooWordCount] = useState(0);
-    setBlooWordCount(((((Math.floor(Math.random() * 100)) % 6) * 100) + 100) + (Math.floor(Math.random() * 100)));
-    
+    const [blooWordCount, setBlooWordCount] = useState(((((Math.floor(Math.random() * 100)) % 6) * 100) + 100) + (Math.floor(Math.random() * 100)));    
     const userWordCount = props.wordCount; // retrieves word count user inputted on previous page
 
     // variables to manage activity end state

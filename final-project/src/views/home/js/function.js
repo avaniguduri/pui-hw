@@ -13,10 +13,10 @@ function HomePage(props) {
     
     return (
         <div className="page-with-topbar">
-            <TopBar showBackArrow="false" pageTitle="" onNextPage={props.onNextPage} lastPage=""/>
+            <TopBar showBackArrow="false" pageTitle="HOME" onNextPage={props.onNextPage} lastPage=""/>
             <div className="sized-page">
                 <div className="home-title">
-                    <p className="project-title">Break<br/>the<br/>Block.</p>
+                    <h1 className="project-title">Break<br/>the<br/>Block.</h1>
                 </div>
                 <img className="centered-image" src="drawings/HomeImage.svg" alt="block on line in sketch style"/>
                 <div className="button-group">
