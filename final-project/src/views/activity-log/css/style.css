@@ -1,0 +1,13 @@
+/* Styling unique to the activity log page component */
+
+.activity-list-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.activity-list-row {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+}

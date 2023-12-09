@@ -1,0 +1,6 @@
+/* Styling unique to the page component for choosing the project vibe*/
+#vibe-options {
+    height: 32px;
+    font-size: 18px;
+    margin-top: 24px;
+}

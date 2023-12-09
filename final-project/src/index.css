@@ -80,6 +80,7 @@ h4 {
   align-self: center;
   flex-shrink: 0;
   gap: 20px;
+  margin-top: 16px;
 }
 
 .black-fill { 
@@ -195,6 +196,5 @@ h4 {
 }
 
 .instructions {
-  margin-top: 20px;
   margin-bottom: 20px;
 }

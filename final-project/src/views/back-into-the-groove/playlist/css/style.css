@@ -1,0 +1,6 @@
+/* Styling unique to the playlist page component */
+
+.playlistLength {
+    margin-top: 20px;
+    text-align: center;
+}
